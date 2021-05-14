@@ -30,3 +30,15 @@ public class MyClass {
 }
 ```
 
+## CSV Date ##
+
+Converts value to Date 
+
+```java
+@CSVDate(pattern = "MM-dd-yyyy")
+```
+
+Data types supported
+- Date
+
+Format used by java.text.SimpleDateFormat

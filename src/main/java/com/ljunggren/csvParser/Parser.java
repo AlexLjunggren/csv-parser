@@ -14,6 +14,9 @@ import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
 import com.ljunggren.csvParser.annotation.CSVColumn;
+import com.ljunggren.csvParser.mapper.CatchAllMapper;
+import com.ljunggren.csvParser.mapper.DateMapper;
+import com.ljunggren.csvParser.mapper.MapperChain;
 import com.ljunggren.csvParser.utils.ParserUtils;
 
 import lombok.Getter;
@@ -81,7 +84,7 @@ public class Parser {
         int index = ParserUtils.columnToInt(column);
         String value = record.get(index);
         try {
-            return field.getType().getConstructor(String.class).newInstance(value);
+            return getMapperChain().map(field, value);
         } catch (Exception e) {
             throw new Exception(String.format("[Column %s: Row %d] Unable to cast %s to %s", 
                     column, record.getRecordNumber(), value, field.getType().getName()));
@@ -90,6 +93,12 @@ public class Parser {
     
     private void setValue(Field field, Object object, Object value) throws Exception {
         FieldUtils.writeField(field, object, value, true);
+    }
+    
+    private MapperChain getMapperChain() {
+        return new DateMapper()
+                .nextChain(new CatchAllMapper()
+                );
     }
 
 }
