@@ -43,8 +43,13 @@ public class Parser {
     }
     
     public <T> List<T> parse(Reader reader, Class<T> clazz) throws Exception {
-        CSVParser parser = createCSVParser(reader);
-        return generateListFromParser(parser, clazz);
+        try {
+            CSVParser parser = createCSVParser(reader);
+            return generateListFromParser(parser, clazz);
+        }
+        finally {
+            reader.close();
+        }
     }
     
     private CSVParser createCSVParser(Reader reader) throws IOException {

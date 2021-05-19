@@ -2,9 +2,13 @@ package com.ljunggren.csvParser.utils;
 
 public class ParserUtils {
 
-    public static int columnToInt(String column) throws Exception {
-        if (!column.matches("[a-zA-Z]+")) {
-            throw new Exception(String.format("Column value must be a letter. Actual: %s", column));
+    public static int columnToInt(String column) {
+        if (!column.matches("[a-zA-Z0-9]+")) {
+            throw new RuntimeException(
+                    String.format("Column must be alphanumeric. Actual: %s", column));
+        }
+        if (column.matches("[0-9]+")) {
+            return Integer.valueOf(column);
         }
         int index = 0;
         for (int i = 0; i < column.length(); i++) {
