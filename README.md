@@ -7,23 +7,37 @@ Parser parser = new Parser();
 List<MyClass> results = parser.parse(file, MyClass.class);
 ```
 
+Mark first row as header
+
+```java
+parser.firstRowIsHeader();
+```
+
+Set Delimiter
+
+```java
+parser.delimiter(',');
+```
+
+**Note:** Default is comma
+
 Annotate private member variables with @CSVColumn. Set value equal to the name of the column as viewed in Excel
 
 ```java
-@CSVColumn(value = "A")
+@CSVColumn("A")
 ```
 
 Defining class map
 
 ```java
 public class MyClass {
-	@CSVColumn(value = "A")
+	@CSVColumn("A")
 	private String firstName;
 	
-	@CSVColumn(value = "B")
+	@CSVColumn("B")
 	private String lastName;
 	
-	@CSVColumn(value = "G")
+	@CSVColumn("G")
 	private int age;
 	
 	// Getters & Setters
