@@ -1,4 +1,4 @@
-package com.ljunggren.csvParser.mapper;
+package io.ljunggren.csvParser.mapper;
 
 import java.lang.reflect.Field;
 
