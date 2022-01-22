@@ -1,6 +1,6 @@
-package com.ljunggren.csvParser.mapper;
+package io.ljunggren.csvParser.mapper;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.lang.reflect.Field;
 

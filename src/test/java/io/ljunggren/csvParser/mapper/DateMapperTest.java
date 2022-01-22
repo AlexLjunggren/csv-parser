@@ -1,6 +1,6 @@
-package com.ljunggren.csvParser.mapper;
+package io.ljunggren.csvParser.mapper;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.lang.reflect.Field;
 import java.util.Calendar;
@@ -8,7 +8,7 @@ import java.util.Date;
 
 import org.junit.Test;
 
-import com.ljunggren.csvParser.annotation.CSVDate;
+import io.ljunggren.csvParser.annotation.CSVDate;
 
 public class DateMapperTest {
     

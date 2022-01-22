@@ -1,4 +1,4 @@
-package com.ljunggren.csvParser;
+package io.ljunggren.csvParser;
 
 import java.io.File;
 import java.io.FileReader;
@@ -13,12 +13,11 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
-import com.ljunggren.csvParser.annotation.CSVColumn;
-import com.ljunggren.csvParser.mapper.CatchAllMapper;
-import com.ljunggren.csvParser.mapper.DateMapper;
-import com.ljunggren.csvParser.mapper.MapperChain;
-import com.ljunggren.csvParser.utils.ParserUtils;
-
+import io.ljunggren.csvParser.annotation.CSVColumn;
+import io.ljunggren.csvParser.mapper.CatchAllMapper;
+import io.ljunggren.csvParser.mapper.DateMapper;
+import io.ljunggren.csvParser.mapper.MapperChain;
+import io.ljunggren.csvParser.utils.ParserUtils;
 import lombok.Getter;
 
 @Getter

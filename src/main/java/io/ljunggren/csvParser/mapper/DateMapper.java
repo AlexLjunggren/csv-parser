@@ -1,9 +1,9 @@
-package com.ljunggren.csvParser.mapper;
+package io.ljunggren.csvParser.mapper;
 
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 
-import com.ljunggren.csvParser.annotation.CSVDate;
+import io.ljunggren.csvParser.annotation.CSVDate;
 
 public class DateMapper extends MapperChain {
 

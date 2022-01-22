@@ -1,4 +1,4 @@
-package com.ljunggren.csvParser;
+package io.ljunggren.csvParser;
 
 import static org.junit.Assert.assertEquals;
 
@@ -16,7 +16,7 @@ public class ParserTest {
 
     @Test
     public void parseWithoutFirstRowIsHeaderTest() throws Exception {
-        File file = getTestFile("com/ljunggren/csvParser/testWithoutHeaders.csv");
+        File file = getTestFile("io/ljunggren/csvParser/testWithoutHeaders.csv");
         Parser parser = new Parser();
         List<TestPojo> results = parser.parse(file, TestPojo.class);
         assertEquals(3, results.size());
@@ -24,7 +24,7 @@ public class ParserTest {
 
     @Test
     public void parseWithFirstRowIsHeaderTest() throws Exception {
-        File file = getTestFile("com/ljunggren/csvParser/testWithHeaders.csv");
+        File file = getTestFile("io/ljunggren/csvParser/testWithHeaders.csv");
         Parser parser = new Parser().firstRowIsHeader();
         List<TestPojo> results = parser.parse(file, TestPojo.class);
         assertEquals(3, results.size());

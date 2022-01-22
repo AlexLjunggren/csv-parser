@@ -1,4 +1,4 @@
-package com.ljunggren.csvParser.utils;
+package io.ljunggren.csvParser.utils;
 
 public class ParserUtils {
 

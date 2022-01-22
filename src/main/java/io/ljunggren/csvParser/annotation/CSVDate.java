@@ -1,4 +1,4 @@
-package com.ljunggren.csvParser.annotation;
+package io.ljunggren.csvParser.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
