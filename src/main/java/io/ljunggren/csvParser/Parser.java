@@ -65,7 +65,7 @@ public class Parser {
         List<T> data = new ArrayList<>();
         List<Field> fields = getAnnotatedFields(clazz);
         for (CSVRecord record: parser.getRecords()) {
-            T object = clazz.newInstance();
+            T object = clazz.getDeclaredConstructor().newInstance();
             for (Field field: fields) {
                 String column = getColumnFromField(field);
                 Object value = getValueFromRecord(field, record, column);
