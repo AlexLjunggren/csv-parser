@@ -96,9 +96,9 @@ In order to map to MyClass, the following will need to be injected:
 
 ```
 Map<String, String> map = new HashMap<>();
-map.put("A", "B"); // target column A to CSV column B
-map.put("B", "C"); // target column B to CSV column C
-map.put("C", "A"); // target column C to CSV column A
+map.put("A", "B"); // MyClass column A to CSV column B
+map.put("B", "C"); // MyClass column B to CSV column C
+map.put("C", "A"); // MyClass column C to CSV column A
 ```
 
 And instatiated with:
