@@ -86,7 +86,7 @@ public class MyClass {
 
 In the event the code may need to normalize a CSV or swap values on the fly, a column mapping can be injected.
 
-Example:
+Example: In the CSV below, the age has moved from column C to column A.
 
 | A | B | C |
 |---|---|---|
@@ -96,10 +96,9 @@ In order to map to MyClass, the following will need to be injected:
 
 ```
 Map<String, String> map = new HashMap<>();
-// target object, CSV
-map.put("A", "B");
-map.put("B", "C");
-map.put("C", "A");
+map.put("A", "B"); // target column A to CSV column B
+map.put("B", "C"); // target column B to CSV column C
+map.put("C", "A"); // target column C to CSV column A
 ```
 
 And instatiated with:
