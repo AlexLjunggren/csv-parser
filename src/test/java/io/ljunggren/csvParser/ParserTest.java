@@ -42,7 +42,9 @@ public class ParserTest {
         Parser parser = new Parser().firstRowIsHeader().columnMap(columnMap);
         List<TestPojo> results = parser.parse(file, TestPojo.class);
         assertEquals(3, results.size());
-
+        assertEquals("Alex", results.get(0).getName());
+        assertEquals("Indiana", results.get(0).getState());
+        assertEquals(Long.valueOf(1), results.get(0).getId());
     }
 
     @Test
