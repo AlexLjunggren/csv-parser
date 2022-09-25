@@ -101,7 +101,7 @@ map.put("B", "C"); // MyClass column B to CSV column C
 map.put("C", "A"); // MyClass column C to CSV column A
 ```
 
-And instatiated with:
+And instantiated with:
 
 ```
 parser.parse(file, MyClass.class).columnMap(map);
