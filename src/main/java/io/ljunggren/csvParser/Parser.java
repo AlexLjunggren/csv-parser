@@ -7,6 +7,7 @@ import java.io.Reader;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -25,6 +26,7 @@ public class Parser {
 
     private char delimiter = ',';
     private boolean firstRowIsHeader;
+    private Map<String, String> columnMap;
     
     public Parser delimiter(char delimiter) {
         this.delimiter = delimiter;
@@ -33,6 +35,11 @@ public class Parser {
     
     public Parser firstRowIsHeader() {
         this.firstRowIsHeader = true;
+        return this;
+    }
+    
+    public Parser columnMap(Map<String, String> columnMap) {
+        this.columnMap = columnMap;
         return this;
     }
     
@@ -68,7 +75,8 @@ public class Parser {
             T object = clazz.getDeclaredConstructor().newInstance();
             for (Field field: fields) {
                 String column = getColumnFromField(field);
-                Object value = getValueFromRecord(field, record, column);
+                String mappedColumn = getMappedColumn(column);
+                Object value = getValueFromRecord(field, record, mappedColumn);
                 setValue(field, object, value);
             }
             data.add(object);
@@ -82,6 +90,14 @@ public class Parser {
     
     private String getColumnFromField(Field field) throws Exception {
         return field.getAnnotation(CSVColumn.class).value();
+    }
+    
+    private String getMappedColumn(String column) {
+        if (columnMap == null) {
+            return column;
+        }
+        String mappedColumn = columnMap.get(column);
+        return mappedColumn == null ? column : mappedColumn;
     }
     
     private Object getValueFromRecord(Field field, CSVRecord record, String column) throws Exception {
