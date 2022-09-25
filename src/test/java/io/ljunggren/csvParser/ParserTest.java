@@ -60,4 +60,19 @@ public class ParserTest {
         assertEquals("Indiana", results.get(0).getName());
     }
 
+    @Test
+    public void parseWithPipeDelimiterTest() throws Exception {
+        File file = getTestFile("io/ljunggren/csvParser/testWithPipeDelimiter.csv");
+        Parser parser = new Parser().firstRowIsHeader().delimiter('|');
+        List<TestPojo> results = parser.parse(file, TestPojo.class);
+        assertEquals(3, results.size());
+    }
+    
+    @Test(expected = Exception.class)
+    public void parseWithInvalidColumnTest() throws Exception {
+        File file = getTestFile("io/ljunggren/csvParser/testWithInvalidId.csv");
+        Parser parser = new Parser().firstRowIsHeader();
+        parser.parse(file, TestPojo.class);
+    }
+    
 }

@@ -1,11 +1,17 @@
 package io.ljunggren.csvParser.utils;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
 public class ParserUtilsTest {
 
+    @Test
+    public void instantiationTest() {
+        assertNotNull(new ParserUtils());
+    }
+    
     @Test
     public void columnToIntTest() {
         assertEquals(ParserUtils.columnToInt("A"), 0);
