@@ -69,6 +69,9 @@ public class Parser {
     }
     
     private <T> List<T> generateListFromParser(CSVParser parser, Class<T> clazz) throws Exception {
+        if (clazz == String.class) {
+            return generateFromFirstColumn(parser, clazz);
+        }
         List<T> data = new ArrayList<>();
         List<Field> fields = getAnnotatedFields(clazz);
         for (CSVRecord record: parser.getRecords()) {
@@ -80,6 +83,15 @@ public class Parser {
                 setValue(field, object, value);
             }
             data.add(object);
+        }
+        return data;
+    }
+    
+    @SuppressWarnings("unchecked")
+    private <T> List<T> generateFromFirstColumn(CSVParser parser, Class<T> clazz) throws IOException {
+        List<T> data = new ArrayList<>();
+        for (CSVRecord record: parser.getRecords()) {
+            data.add((T) record.get(0));
         }
         return data;
     }
