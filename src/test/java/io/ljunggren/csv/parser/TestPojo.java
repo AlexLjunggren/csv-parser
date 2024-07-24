@@ -1,6 +1,6 @@
-package io.ljunggren.csvParser;
+package io.ljunggren.csv.parser;
 
-import io.ljunggren.csvParser.annotation.CSVColumn;
+import io.ljunggren.csv.parser.annotation.CSVColumn;
 import lombok.Data;
 
 @Data

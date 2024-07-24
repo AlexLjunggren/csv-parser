@@ -1,4 +1,4 @@
-package io.ljunggren.csvParser;
+package io.ljunggren.csv.parser;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Test;
+
+import io.ljunggren.csv.parser.Parser;
 
 public class ParserTest {
     

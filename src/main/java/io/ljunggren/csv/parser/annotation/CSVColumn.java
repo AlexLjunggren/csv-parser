@@ -1,4 +1,4 @@
-package io.ljunggren.csvParser.annotation;
+package io.ljunggren.csv.parser.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,8 +7,8 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface CSVDate {
+public @interface CSVColumn {
 
-    String pattern();
+    String value();
     
 }

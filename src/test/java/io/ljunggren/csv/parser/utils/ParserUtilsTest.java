@@ -1,9 +1,11 @@
-package io.ljunggren.csvParser.utils;
+package io.ljunggren.csv.parser.utils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
+
+import io.ljunggren.csv.parser.utils.ParserUtils;
 
 public class ParserUtilsTest {
 

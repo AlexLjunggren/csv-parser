@@ -1,10 +1,12 @@
-package io.ljunggren.csvParser.mapper;
+package io.ljunggren.csv.parser.mapper;
 
 import static org.junit.Assert.assertEquals;
 
 import java.lang.reflect.Field;
 
 import org.junit.Test;
+
+import io.ljunggren.csv.parser.mapper.CatchAllMapper;
 
 public class CatchAllMapperTest {
     

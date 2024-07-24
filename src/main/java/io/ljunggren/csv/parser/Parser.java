@@ -1,11 +1,13 @@
-package io.ljunggren.csvParser;
+package io.ljunggren.csv.parser;
 
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -14,11 +16,11 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
-import io.ljunggren.csvParser.annotation.CSVColumn;
-import io.ljunggren.csvParser.mapper.CatchAllMapper;
-import io.ljunggren.csvParser.mapper.DateMapper;
-import io.ljunggren.csvParser.mapper.MapperChain;
-import io.ljunggren.csvParser.utils.ParserUtils;
+import io.ljunggren.csv.parser.annotation.CSVColumn;
+import io.ljunggren.csv.parser.mapper.CatchAllMapper;
+import io.ljunggren.csv.parser.mapper.DateMapper;
+import io.ljunggren.csv.parser.mapper.MapperChain;
+import io.ljunggren.csv.parser.utils.ParserUtils;
 import lombok.Getter;
 
 @Getter
@@ -43,19 +45,38 @@ public class Parser {
         return this;
     }
     
-    public <T> List<T> parse(File file, Class<T> clazz) throws Exception {
-        Reader reader = new FileReader(file);
-        return parse(reader, clazz);
+    public List<List<String>> parse(File file) throws Exception {
+        Reader reader = getReader(file);
+        try {
+            CSVParser parser = createCSVParser(reader);
+            return parse(parser);
+        } finally {
+            reader.close();
+        }
     }
     
-    public <T> List<T> parse(Reader reader, Class<T> clazz) throws Exception {
+    public <T> List<T> parse(File file, Class<T> clazz) throws Exception {
+        Reader reader = getReader(file);
         try {
             CSVParser parser = createCSVParser(reader);
             return generateListFromParser(parser, clazz);
-        }
-        finally {
+        } finally {
             reader.close();
         }
+    }
+    
+    public List<String> parseHeaders(File file) throws Exception {
+        Reader reader = getReader(file);
+        try {
+            CSVParser parser = createCSVParser(reader);
+            return parser.getHeaderNames();
+        } finally {
+            reader.close();
+        }
+    }
+    
+    private Reader getReader(File file) throws Exception {
+        return new InputStreamReader(new FileInputStream(file), "UTF-8");
     }
     
     private CSVParser createCSVParser(Reader reader) throws IOException {
@@ -68,9 +89,22 @@ public class Parser {
                 .parse(reader);
     }
     
+    private List<List<String>> parse(CSVParser parser) throws Exception {
+        List<List<String>> data = new ArrayList<>();
+        for (CSVRecord record: parser.getRecords()) {
+            List<String> rowData = new ArrayList<>();
+            Iterator<String> iterator = record.iterator();
+            while(iterator.hasNext()) {
+                rowData.add(iterator.next());
+            }
+            data.add(rowData);
+        }
+        return data;
+    }
+    
     private <T> List<T> generateListFromParser(CSVParser parser, Class<T> clazz) throws Exception {
         if (clazz == String.class) {
-            return generateFromFirstColumn(parser, clazz);
+            return generateFromColumn(parser, clazz, 0);
         }
         List<T> data = new ArrayList<>();
         List<Field> fields = getAnnotatedFields(clazz);
@@ -88,10 +122,10 @@ public class Parser {
     }
     
     @SuppressWarnings("unchecked")
-    private <T> List<T> generateFromFirstColumn(CSVParser parser, Class<T> clazz) throws IOException {
+    private <T> List<T> generateFromColumn(CSVParser parser, Class<T> clazz, int column) throws IOException {
         List<T> data = new ArrayList<>();
         for (CSVRecord record: parser.getRecords()) {
-            data.add((T) record.get(0));
+            data.add((T) record.get(column));
         }
         return data;
     }
