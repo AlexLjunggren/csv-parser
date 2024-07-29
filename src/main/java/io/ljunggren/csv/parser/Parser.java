@@ -80,13 +80,11 @@ public class Parser {
     }
     
     private CSVParser createCSVParser(Reader reader) throws IOException {
+        CSVFormat format = CSVFormat.DEFAULT.withDelimiter(delimiter);
         if (firstRowIsHeader) {
-            return CSVFormat.DEFAULT.withDelimiter(delimiter)
-                    .withFirstRecordAsHeader()
-                    .parse(reader);
+            format.withFirstRecordAsHeader();
         }
-        return CSVFormat.DEFAULT.withDelimiter(delimiter)
-                .parse(reader);
+        return format.parse(reader);
     }
     
     private List<List<String>> parse(CSVParser parser) throws Exception {
